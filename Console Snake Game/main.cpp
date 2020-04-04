@@ -39,8 +39,8 @@ public:
     }
     void generateFood()
     {
-        fx=rand()%(width-1);
-        fy=rand()%(height-1);
+        fx=rand()%(width-2);
+        fy=rand()%(height-2);
     }
     void setFlag()
     {
@@ -123,26 +123,52 @@ public:
     void drawWorld()
     {
         for (int i=0; i<width+2; i++)
+        {
+
+            HANDLE h = GetStdHandle( STD_OUTPUT_HANDLE );
+            SetConsoleTextAttribute(h, 10);
             cout<<'#';
+        }
         cout<<endl;
         for (int i=0; i<height; i++)
         {
-            cout<<'#';
-            for (int j=0; j<width; j++)
+            for (int j=0; j<width+2; j++)
             {
                 if (j==hx && i==hy)
+                {
+                    HANDLE h = GetStdHandle( STD_OUTPUT_HANDLE );
+                    SetConsoleTextAttribute(h, 14);
                     cout<<head;
+                }
                 else if (flags[ {j,i}]=="tail")
+                {
+                    HANDLE h = GetStdHandle( STD_OUTPUT_HANDLE );
+                    SetConsoleTextAttribute(h, 14);
                     cout<<tail;
+                }
                 else if (j==fx && i==fy)
+                {
+                    HANDLE h = GetStdHandle( STD_OUTPUT_HANDLE );
+                    SetConsoleTextAttribute(h, 12);
                     cout<<food;
+                }
+                else if(j==0 || j==width+1)
+                {
+                    HANDLE h = GetStdHandle( STD_OUTPUT_HANDLE );
+                    SetConsoleTextAttribute(h, 10);
+                    cout<<"#";
+                }
                 else
                     cout<<' ';
             }
-            cout<<'#'<<endl;
+            cout<<endl;
         }
         for (int i=0; i<width+2; i++)
+        {
+            HANDLE h = GetStdHandle( STD_OUTPUT_HANDLE );
+            SetConsoleTextAttribute(h, 10);
             cout<<'#';
+        }
         cout<<endl;
         cout<<"Score = "<<score<<endl;
     }
